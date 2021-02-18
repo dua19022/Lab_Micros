@@ -2,4 +2,4 @@ Link del Video:
 https://youtu.be/prZ74KSu_ns
 
 Link del repositorio:
-https://github.com/dua19446/laboratorios-microcontroladores.git
+https://github.com/dua19022/Lab_Micros.git
