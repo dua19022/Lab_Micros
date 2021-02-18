@@ -149,7 +149,7 @@ loop:
     incf    PORTB
     
     bcf	    PORTD, 0 
-    call    Prueba
+    call    comp
     
     goto loop		; Regresa al inicio
     
@@ -188,29 +188,17 @@ clock:		    ; Se configura el oscilador interno
     bcf	    IRCF0   ; Frecuencia de 250 KHz
     bsf	    SCS	    ; Activar oscilador interno
     return
-    
+        
 comp:
-    clrf    STATUS
-    movf    PORTB, W
-    subwf   var, w
-    btfss   STATUS, 2
-    ;goto    $-1
-    movwf   PORTD, 0
-    ;incf    PORTD
-    ;clrf    PORTB
-    ;clrf    PORTD
-    return
-    
-Prueba:
-    movf    PORTB, w
-    subwf   var, w
-    btfsc   STATUS, 2 
-    call    alarma
+    movf    PORTB, w	; Se mueve el counter binario a W
+    subwf   var, w	; Se resta W a la variable var
+    btfsc   STATUS, 2	; Si son iguales la bandera de z se levanta
+    call    alarma	; Si se levanta la bandera, se activa el led
     return
     
 alarma:
-    bsf	    PORTD,0
-    clrf    PORTB
+    bsf	    PORTD,0	; Activar la led
+    clrf    PORTB	; Se reinicia el counter binario
     return
     
     
