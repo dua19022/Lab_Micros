@@ -43,7 +43,7 @@ active_int macro    ; La macro para incrementar y decrementar
     
 resetD macro	    ; Reset del timer0
     btfss   T0IF    ; overflow timer0
-    movlw   12    ; de donde empieza el timer
+    movlw   12	    ; de donde empieza el timer
     movwf   TMR0    ; Mover el valor anterior al registro
     bcf	    T0IF
     endm  
@@ -236,7 +236,7 @@ main:
 	; Regresa el main loop
      
 reset0:
-    movlw   12	    ; Tiempo de intruccion
+    movlw   1	    ; Tiempo de intruccion
     movwf   TMR0
     bcf	    T0IF    ; Volver 0 al bit del overflow
     return
@@ -250,22 +250,23 @@ clock:		    ; Se configura el oscilador interno
     return
     
 timer0:
-    ;btfss   T0IF	; Sumar cuando llegue al overflow el timer0
-    ;goto    $-1
-    		; Regresa el overflow a 0
+    btfss   T0IF	; Sumar cuando llegue al overflow el timer0
+    goto    $-1
+    call    reset0		; Regresa el overflow a 0
+    /*incf    delay
+    movf    delay, w
+    sublw   10
+    btfss   STATUS, 2
+    goto    $+2
+    clrf    var
+    */
     incf    var
     movf    var, w
     call    table
     movwf   PORTD
-    resetD
+  
     return
     
-delay_small:
-    movlw 248		 ; Valor inicial del contador
-    movwf delay	
-    decfsz delay, 1	 ; Decrmentar el contador
-    goto $-1		 ; Ejecutar linea anterior
-    return
     
 END
 

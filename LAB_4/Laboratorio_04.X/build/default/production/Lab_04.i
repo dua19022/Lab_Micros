@@ -2485,10 +2485,8 @@ ENDM
 
 active_int macro ; La macro para incrementar y decrementar
     btfss PORTB, 0
-    goto $-1
     incf PORTA
     btfss PORTB, 1
-    goto $-1
     decf PORTA
     endm
 
@@ -2687,7 +2685,7 @@ main:
  ; Regresa el main loop
 
 reset0:
-    movlw 12 ; Tiempo de intruccion
+    movlw 1 ; Tiempo de intruccion
     movwf TMR0
     bcf ((INTCON) and 07Fh), 2 ; Volver 0 al bit del overflow
     return
@@ -2701,21 +2699,22 @@ clock: ; Se configura el oscilador interno
     return
 
 timer0:
-    ;btfss ((INTCON) and 07Fh), 2 ; Sumar cuando llegue al overflow el timer0
-    ;goto $-1
-      ; Regresa el overflow a 0
+    btfss ((INTCON) and 07Fh), 2 ; Sumar cuando llegue al overflow el timer0
+    goto $-1
+    call reset0 ; Regresa el overflow a 0
+
+
+
+
+
+
+
     incf var
     movf var, w
     call table
     movwf PORTD
-    resetD
+
     return
 
-delay_small:
-    movlw 248 ; Valor inicial del contador
-    movwf delay
-    decfsz delay, 1 ; Decrmentar el contador
-    goto $-1 ; Ejecutar linea anterior
-    return
 
 END
