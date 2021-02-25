@@ -2528,19 +2528,20 @@ resetVec:
 PSECT code, delta=2, abs
 ORG 04h
 
-push:
+push: ; Mover las variables temporales a w
     movwf W_TEMP
     swapf STATUS, W
     movwf STATUS_TEMP
 
 isr:
     BANKSEL PORTB
-    active_int ; Se llama a la macro de los botones
-    bcf ((INTCON) and 07Fh), 0 ; Limpiar bit
-    btfsc ((INTCON) and 07Fh), 2
+    btfsc ((INTCON) and 07Fh), 0 ; Revisar si hay interrupciones en el puerto b
+    call active ; Se llama a la subrutina de los botones
+    bcf ((INTCON) and 07Fh), 0
+    btfsc ((INTCON) and 07Fh), 2 ; Revisar si hay overflow del timer0
     call timer0
 
-pop:
+pop: ; Regresar w al status
     swapf STATUS_TEMP, W
     movwf STATUS
     swapf W_TEMP, F
@@ -2623,8 +2624,8 @@ main:
     bcf OPTION_REG, 7
 
     BANKSEL WPUB
-    bsf WPUB, 0
-    bsf WPUB, 1
+    bsf WPUB, 0 ; Se activa el pull-up interno
+    bsf WPUB, 1 ; Se activa el pull-up interno
     bcf WPUB, 2
     bcf WPUB, 3
     bcf WPUB, 4
@@ -2672,17 +2673,14 @@ main:
 ;******************************************************************************
     loop:
 
-    movf PORTA, w
-    call table
-    movwf PORTC
+    movf PORTA, w ; Se mueve el contador binario a w
+    call table ; Se manda a traducir el contador binario
+    movwf PORTC ; Se mueve la traduccion al puerto c
 
     goto loop
 ;******************************************************************************
 ; Sub-Rutinas
 ;******************************************************************************
-    ; Aqui se definen los antirebotes y el incremento y decremento
-
- ; Regresa el main loop
 
 reset0:
     movlw 1 ; Tiempo de intruccion
@@ -2702,19 +2700,17 @@ timer0:
     btfss ((INTCON) and 07Fh), 2 ; Sumar cuando llegue al overflow el timer0
     goto $-1
     call reset0 ; Regresa el overflow a 0
-
-
-
-
-
-
-
     incf var
     movf var, w
     call table
     movwf PORTD
-
     return
 
+active: ; La subrutina para incrementar y decrementar
+    btfss PORTB, 0 ; Se revisa si se apacha el boton 1
+    incf PORTA ; Se incrmenta
+    btfss PORTB, 1 ; Se revisa si se apacha el boton 2
+    decf PORTA ; Se decrementa
+    return
 
 END

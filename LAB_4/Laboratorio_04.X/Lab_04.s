@@ -15,20 +15,20 @@ PROCESSOR 16F887
 ;******************************************************************************
 
 ; CONFIG1
-  CONFIG  FOSC = INTRC_CLKOUT   ; Oscillator Selection bits (XT oscillator: Crystal/resonator on RA6/OSC2/CLKOUT and RA7/OSC1/CLKIN)
-  CONFIG  WDTE = OFF            ; Watchdog Timer Enable bit (WDT disabled and can be enabled by SWDTEN bit of the WDTCON register)
-  CONFIG  PWRTE = ON            ; Power-up Timer Enable bit (PWRT enabled)
-  CONFIG  MCLRE = OFF           ; RE3/MCLR pin function select bit (RE3/MCLR pin function is digital input, MCLR internally tied to VDD)
-  CONFIG  CP = OFF              ; Code Protection bit (Program memory code protection is disabled)
-  CONFIG  CPD = OFF             ; Data Code Protection bit (Data memory code protection is disabled)
-  CONFIG  BOREN = OFF           ; Brown Out Reset Selection bits (BOR disabled)
-  CONFIG  IESO = OFF            ; Internal External Switchover bit (Internal/External Switchover mode is disabled)
-  CONFIG  FCMEN = OFF           ; Fail-Safe Clock Monitor Enabled bit (Fail-Safe Clock Monitor is disabled)
-  CONFIG  LVP = ON              ; Low Voltage Programming Enable bit (RB3/PGM pin has PGM function, low voltage programming enabled)
+  CONFIG  FOSC =    INTRC_CLKOUT   ; Oscillator Selection bits (XT oscillator: Crystal/resonator on RA6/OSC2/CLKOUT and RA7/OSC1/CLKIN)
+  CONFIG  WDTE =    OFF            ; Watchdog Timer Enable bit (WDT disabled and can be enabled by SWDTEN bit of the WDTCON register)
+  CONFIG  PWRTE =   ON            ; Power-up Timer Enable bit (PWRT enabled)
+  CONFIG  MCLRE =   OFF           ; RE3/MCLR pin function select bit (RE3/MCLR pin function is digital input, MCLR internally tied to VDD)
+  CONFIG  CP =	    OFF              ; Code Protection bit (Program memory code protection is disabled)
+  CONFIG  CPD =	    OFF             ; Data Code Protection bit (Data memory code protection is disabled)
+  CONFIG  BOREN =   OFF           ; Brown Out Reset Selection bits (BOR disabled)
+  CONFIG  IESO =    OFF            ; Internal External Switchover bit (Internal/External Switchover mode is disabled)
+  CONFIG  FCMEN =   OFF           ; Fail-Safe Clock Monitor Enabled bit (Fail-Safe Clock Monitor is disabled)
+  CONFIG  LVP =	    ON              ; Low Voltage Programming Enable bit (RB3/PGM pin has PGM function, low voltage programming enabled)
 
 ; CONFIG2
-  CONFIG  BOR4V = BOR40V        ; Brown-out Reset Selection bit (Brown-out Reset set to 4.0V)
-  CONFIG  WRT = OFF             ; Flash Program Memory Self Write Enable bits (Write protection off)
+  CONFIG  BOR4V =   BOR40V        ; Brown-out Reset Selection bit (Brown-out Reset set to 4.0V)
+  CONFIG  WRT =	    OFF             ; Flash Program Memory Self Write Enable bits (Write protection off)
 
 ;******************************************************************************
 ; Macros 
@@ -64,7 +64,7 @@ PSECT udata_shr ;Common memory
 	DS 1
 	
     delay:
-	DS  1
+	DS 1
        
 ;******************************************************************************
 ; Vector Reset
@@ -79,19 +79,20 @@ resetVec:
 PSECT code, delta=2, abs
 ORG 04h 
     
-push:
+push:			; Mover las variables temporales a w
     movwf   W_TEMP
     swapf   STATUS, W
     movwf   STATUS_TEMP
 
 isr:
     BANKSEL PORTB
-    active_int		; Se llama a la macro de los botones
-    bcf	    RBIF	; Limpiar bit
-    btfsc   T0IF
+    btfsc   RBIF	; Revisar si hay interrupciones en el puerto b
+    call    active	; Se llama a la subrutina de los botones
+    bcf	    RBIF	
+    btfsc   T0IF	; Revisar si hay overflow del timer0
     call    timer0
     
-pop:
+pop:			; Regresar w al status
     swapf   STATUS_TEMP, W
     movwf   STATUS
     swapf   W_TEMP, F
@@ -174,8 +175,8 @@ main:
     bcf	    OPTION_REG, 7
     
     BANKSEL WPUB
-    bsf	    WPUB, 0
-    bsf	    WPUB, 1
+    bsf	    WPUB, 0	; Se activa el pull-up interno
+    bsf	    WPUB, 1	; Se activa el pull-up interno
     bcf	    WPUB, 2
     bcf	    WPUB, 3
     bcf	    WPUB, 4
@@ -184,7 +185,7 @@ main:
     bcf	    WPUB, 7
     
     ; Se llama las configuraciones del clock
-    call clock		; Llamo a la configurcion del oscilador interno
+    call    clock		; Llamo a la configurcion del oscilador interno
     
     ; Interrupciones
     BANKSEl IOCB	; Activar interrupciones
@@ -223,17 +224,14 @@ main:
 ;******************************************************************************
     loop:
     
-    movf    PORTA, w
-    call    table
-    movwf   PORTC
+    movf    PORTA, w	; Se mueve el contador binario a w
+    call    table	; Se manda a traducir el contador binario
+    movwf   PORTC	; Se mueve la traduccion al puerto c
     
     goto    loop
 ;******************************************************************************
 ; Sub-Rutinas 
 ;******************************************************************************
-    ; Aqui se definen los antirebotes y el incremento y decremento
-
-	; Regresa el main loop
      
 reset0:
     movlw   1	    ; Tiempo de intruccion
@@ -253,23 +251,17 @@ timer0:
     btfss   T0IF	; Sumar cuando llegue al overflow el timer0
     goto    $-1
     call    reset0		; Regresa el overflow a 0
-    /*incf    delay
-    movf    delay, w
-    sublw   10
-    btfss   STATUS, 2
-    goto    $+2
-    clrf    var
-    */
     incf    var
     movf    var, w
     call    table
     movwf   PORTD
-  
     return
     
+active:   ; La subrutina para incrementar y decrementar
+    btfss   PORTB, 0	; Se revisa si se apacha el boton 1
+    incf    PORTA	; Se incrmenta
+    btfss   PORTB, 1	; Se revisa si se apacha el boton 2
+    decf    PORTA	; Se decrementa
+    return    
     
 END
-
-
-
-
