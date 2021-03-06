@@ -2547,17 +2547,15 @@ pop: ; Regresar w al status
  ;------------------------Sub rutinas de interrupcion--------------------------
 
 int_tmr:
-    ;BANKSEL PORTE
-    call reset0
-    ;clrf flags
-
-    bcf PORTE, 0
+    call reset0 ; Se limpia el TMR0
+    bcf PORTE, 0 ; Se limpian todos los puertos que van a los transistores
     bcf PORTE, 1
     bcf PORTB, 5
     bcf PORTB, 6
     bcf PORTB, 7
 
-    btfsc flags, 0
+    ; Lo que se busca hacer aca es revisar que display esta activado he ir al siguiebte
+    btfsc flags, 0 ; Flags es una variable la cual se usa para saber en que display esta
     goto disp_02
 
     btfsc flags, 1
@@ -2569,39 +2567,35 @@ int_tmr:
     btfsc flags, 3
     goto disp_05
 
+    ; Se crean varias rutinas internas para activar los displays
 disp_01:
-    ;clrf PORTC
     movf disp_var, w
     movwf PORTD
     bsf PORTE, 0
     goto next_disp
 disp_02:
-    ;clrf PORTC
     movf disp_var+1, W
     movwf PORTD
     bsf PORTE, 1
     goto next_disp01
 disp_03:
-    ;clrf PORTD
     movf disp_var+2, W
     movwf PORTD
     bsf PORTB, 5
     goto next_disp02
 disp_04:
-    ;clrf PORTD
     movf disp_var+3, W
     movwf PORTD
     bsf PORTB, 6
     goto next_disp03
 disp_05:
-    ;clrf PORTD
     movf disp_var+4, W
     movwf PORTD
     bsf PORTB, 7
     goto next_disp04
 
-next_disp:
-    MOVLW 00000001B
+next_disp: ; Se crean XOR para cada display en modo de hacer rotaciones
+    MOVLW 00000001B ; Se empieza con un bit
     XORWF flags, 1
     RETURN
 next_disp01:
@@ -2714,7 +2708,7 @@ main:
     BANKSEL WPUB
     bsf WPUB, 0 ; Se activa el pull-up interno
     bsf WPUB, 1 ; Se activa el pull-up interno
-    bcf WPUB, 2
+    bcf WPUB, 2 ; Los demas pull-up se desactivan
     bcf WPUB, 3
     bcf WPUB, 4
     bcf WPUB, 5
@@ -2762,45 +2756,45 @@ main:
     loop:
 
     BANKSEL PORTA
-    call div_nib
-    call prep_nib
+    call div_nib ; Se llama a la division de los nibbles
+    call prep_nib ; Se mandan los nibbles a cada display
     BANKSEL PORTA
-    call division
+    call division ; Se ejecuta la subrutina de la operacion
 
     goto loop
 ;******************************************************************************
 ; Sub-Rutinas
 ;******************************************************************************
 
-div_nib:
+div_nib: ; Se separan los nibbles para la primera parte
     movf PORTA, w
     andlw 00001111B
     movwf nibble
-    swapf PORTA, w
+    swapf PORTA, w ; Se cambian los ultimos 4 bits por los primeros
     andlw 00001111B
     movwf nibble+1
     return
 
-prep_nib:
+prep_nib: ; Se mandan los valores que se quieren desplegar en el 7 segmentos
     movf nibble, w
     call table
-    movwf disp_var
+    movwf disp_var ; Display 1
 
     movf nibble+1, w
     call table
-    movwf disp_var+1
+    movwf disp_var+1 ; Display 2
 
     movf centenas, W
     call table
-    movwf disp_var+2
+    movwf disp_var+2 ; Display 3
 
     movf decenas, W
     call table
-    movwf disp_var+3
+    movwf disp_var+3 ; Display 4
 
     movf residuos, W
     call table
-    movwf disp_var+4
+    movwf disp_var+4 ; Display 5
     return
 
 reset0:
@@ -2826,27 +2820,27 @@ clock: ; Se configura el oscilador interno
     bsf ((OSCCON) and 07Fh), 0 ; Activar oscilador interno
     return
 
-division:
+division: ; Se crea la subrutina de la separacion de valores
     clrf centenas ; Empieza la parte de las centenas
-    movf PORTA, 0 ; Se mueve lo que hay en el contador
-    movwf residuos ;
-    movlw 100 ;
-    subwf residuos, 0 ;
-    btfsc STATUS, 0 ;
-    incf centenas ;
-    btfsc STATUS, 0 ;
-    movwf residuos ;
+    movf PORTA, 0 ; Se mueve lo que hay en el contador a w
+    movwf residuos ; Se mueve w a la variable residuos
+    movlw 100 ; Se mueve 100 a w
+    subwf residuos, 0 ; A residuos se le resta 100
+    btfsc STATUS, 0 ; Se verifica si la bandera de status es 0
+    incf centenas ; Se incrementa una variable si la bandera es 1
+    btfsc STATUS, 0 ; Se vuelve a verificar la bandera
+    movwf residuos ; Se mueve lo sobrante a residuos
     btfsc STATUS, 0 ;
     goto $-7 ;
 
     clrf decenas ; Empieza la parte de las decenas
-    movlw 10 ;
-    subwf residuos, 0 ;
-    btfsc STATUS, 0 ;
-    incf decenas ;
-    btfsc STATUS, 0 ;
+    movlw 10 ; Se mueve 10 a w
+    subwf residuos, 0 ; Se le resta a residuos 10
+    btfsc STATUS, 0 ; Se verifica la bandera
+    incf decenas ; Se incrementa la variable decenas
+    btfsc STATUS, 0 ; Se verifica la bandera
     movwf residuos ; Se usa residuos como unidades ya que es lo que sobra
-    btfsc STATUS, 0 ;
+    btfsc STATUS, 0 ; Se verifica la bandera
     goto $-7 ;
     btfss STATUS, 0 ;
     return
