@@ -1,0 +1,313 @@
+%CMF
+# %PSECTS Section
+# For each object file, details of its psects are enumerated here.
+# The begining of the section is indicated by %PSECTS.  The first
+# line indicates the name of the first object file, e.g.
+#    $foo.obj
+# Each line that follows describes a psect in that object file, until
+# the next object file.  The lines that describe a psect have the
+# format:
+#    <psect name> <class name> <space> <link address> <load addresses> <length> <delta>
+# All addresses and the length are given in unqualified hexadecimal
+# in delta units.  Any other numeric values are decimal.
+%PSECTS
+$build/default/production/Lab_06.o
+resVect code 0 0 0 3 2
+code CODE 0 0 0 17C 2
+udata_bank0 BANK0 1 20 20 3 1
+udata_shr COMMON 1 70 70 8 1
+config CONFIG 4 2007 2007 2 2
+# %UNUSED Section
+# This section enumerates the unused ranges of each CLASS. Each entry
+# is described on a single line as follows:
+#    <class name> <range> <delta>
+# Addresses given in the range are in hexadecimal and units of delta.
+%UNUSED
+RAM 23-6F 1
+RAM A0-EF 1
+RAM 110-16F 1
+RAM 190-1EF 1
+BANK0 23-6F 1
+BANK1 A0-EF 1
+BANK2 110-16F 1
+BANK3 190-1EF 1
+CONST 17C-1FFF 2
+ENTRY 17C-1FFF 2
+IDLOC 2000-2003 2
+CODE 17C-1FFF 2
+COMMON 78-7F 1
+EEDATA 2100-21FF 2
+STRCODE 17C-1FFF 2
+STRING 17C-1FFF 2
+# %LINETAB Section
+# This section enumerates the file/line to address mappings.
+# The beginning of the section is indicated by %LINETAB.
+# The first line indicates the name of the first object file, e.g.
+#   $foo.obj
+# Each line that follows describes a single mapping until the next
+# object file.  Mappings have the following format:
+#    <address> <psect name> <class name> ><line number>:<file name>
+# The address is absolute and given given in unqualified hex 
+# in delta units of the psect. All mappings within an object file
+# are in ascending order of addresses.
+# All other numeric values are in decimal.
+%LINETAB
+$build/default/production/Lab_06.o
+0 resVect code >75:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+0 resVect code >76:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+0 resVect code >77:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+2 resVect code >78:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+0 code CODE >83:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+4 code CODE >85:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+4 code CODE >86:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+5 code CODE >87:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+6 code CODE >88:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+7 code CODE >90:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+7 code CODE >92:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+9 code CODE >93:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+A code CODE >94:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+B code CODE >95:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+C code CODE >96:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+D code CODE >98:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+F code CODE >99:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+10 code CODE >100:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+11 code CODE >101:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+13 code CODE >102:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+14 code CODE >104:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+14 code CODE >105:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+15 code CODE >106:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+16 code CODE >107:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+17 code CODE >108:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+18 code CODE >109:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+19 code CODE >114:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+19 code CODE >116:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+1A code CODE >117:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+1B code CODE >119:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+1B code CODE >120:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+1C code CODE >121:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+1D code CODE >123:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+1D code CODE >124:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+1E code CODE >125:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+1F code CODE >127:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+1F code CODE >128:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+21 code CODE >129:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+22 code CODE >130:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+23 code CODE >132:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+25 code CODE >133:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+26 code CODE >134:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+27 code CODE >136:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+28 code CODE >137:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+29 code CODE >138:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+2A code CODE >140:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+2A code CODE >141:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+2B code CODE >142:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+2C code CODE >143:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+2D code CODE >144:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+2E code CODE >145:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+2F code CODE >148:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+2F code CODE >149:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+30 code CODE >150:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+31 code CODE >151:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+32 code CODE >152:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+33 code CODE >153:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+33 code CODE >154:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+34 code CODE >155:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+35 code CODE >156:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+36 code CODE >157:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+36 code CODE >158:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+37 code CODE >159:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+38 code CODE >160:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+39 code CODE >166:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+100 code CODE >169:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+100 code CODE >170:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+101 code CODE >171:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+102 code CODE >172:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+103 code CODE >173:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+104 code CODE >174:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+105 code CODE >175:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+106 code CODE >176:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+107 code CODE >177:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+108 code CODE >178:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+109 code CODE >179:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+10A code CODE >180:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+10B code CODE >181:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+10C code CODE >182:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+10D code CODE >183:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+10E code CODE >184:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+10F code CODE >185:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+110 code CODE >186:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+111 code CODE >187:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+112 code CODE >188:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+113 code CODE >189:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+114 code CODE >196:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+118 code CODE >197:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+118 code CODE >199:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+11A code CODE >200:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+11B code CODE >201:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+11C code CODE >205:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+11E code CODE >206:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+11F code CODE >207:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+120 code CODE >208:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+121 code CODE >209:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+122 code CODE >210:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+123 code CODE >211:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+124 code CODE >212:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+125 code CODE >213:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+126 code CODE >216:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+128 code CODE >217:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+129 code CODE >218:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+12A code CODE >219:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+12B code CODE >223:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+12C code CODE >226:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+12E code CODE >227:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+12F code CODE >228:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+130 code CODE >229:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+131 code CODE >231:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+133 code CODE >232:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+134 code CODE >233:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+135 code CODE >235:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+137 code CODE >236:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+138 code CODE >237:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+139 code CODE >241:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+13B code CODE >242:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+13C code CODE >243:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+13D code CODE >244:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+13E code CODE >245:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+13F code CODE >246:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+140 code CODE >250:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+142 code CODE >251:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+143 code CODE >252:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+144 code CODE >253:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+145 code CODE >254:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+146 code CODE >258:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+148 code CODE >259:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+149 code CODE >260:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+14A code CODE >264:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+14C code CODE >265:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+14D code CODE >266:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+14E code CODE >267:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+14F code CODE >268:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+150 code CODE >269:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+151 code CODE >274:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+151 code CODE >275:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+155 code CODE >276:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+157 code CODE >277:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+158 code CODE >279:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+159 code CODE >280:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+15A code CODE >282:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+15B code CODE >283:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+15C code CODE >286:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+15D code CODE >290:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+15D code CODE >291:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+15E code CODE >292:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+15F code CODE >293:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+160 code CODE >294:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+161 code CODE >295:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+162 code CODE >296:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+163 code CODE >297:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+164 code CODE >299:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+164 code CODE >300:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+165 code CODE >301:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+166 code CODE >302:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+167 code CODE >303:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+168 code CODE >304:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+169 code CODE >305:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+16A code CODE >306:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+16B code CODE >307:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+16C code CODE >309:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+16C code CODE >310:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+16D code CODE >311:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+16E code CODE >312:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+16F code CODE >313:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+170 code CODE >314:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+171 code CODE >316:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+171 code CODE >318:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+172 code CODE >319:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+173 code CODE >320:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+174 code CODE >321:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+175 code CODE >323:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+175 code CODE >324:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+177 code CODE >325:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+178 code CODE >326:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+179 code CODE >327:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+17A code CODE >328:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+17B code CODE >329:D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_6\Laboratorio_06.X\Lab_06.s
+# %SYMTAB Section
+# An enumeration of all symbols in the program.
+# The beginning of the section is indicated by %SYMTAB.
+# Each line describes a single symbol as follows:
+#    <label> <value> [-]<load-adj> <class> <space> <psect> <file-name>
+# The value and load-adj are both in unqualified hexadecimal.
+# All other numeric values are in decimal.  The load-adj is the
+# quantity one needs to add to the symbol value in order to obtain the load
+# address of the symbol.  This value may be signed. If the symbol
+# was defined in a psect then <psect> will be "-". File-name
+# is the name of the object file in which the symbol was defined.
+%SYMTAB
+__Hspace_0 17C 0 ABS 0 - -
+__Hspace_1 78 0 ABS 0 - -
+__Hspace_3 0 0 ABS 0 - -
+__Hspace_4 4010 0 ABS 0 - -
+__Hudata_bank0 0 0 ABS 0 udata_bank0 -
+__Hudata_bank1 0 0 ABS 0 udata_bank1 -
+__Hudata_bank2 0 0 ABS 0 udata_bank2 -
+__Hudata_bank3 0 0 ABS 0 udata_bank3 -
+__LresVect 0 0 code 0 resVect -
+__Hedata 0 0 ABS 0 edata -
+__Hudata 0 0 ABS 0 udata -
+__Hconfig 4012 0 CONFIG 4 config -
+__Ledata 0 0 ABS 0 edata -
+__Ludata 0 0 ABS 0 udata -
+__Hcode 0 0 ABS 0 code -
+__Hdata 0 0 ABS 0 data -
+__Lcode 0 0 ABS 0 code -
+__Ldata 0 0 ABS 0 data -
+__S0 0 0 ABS 0 - -
+__S1 78 0 ABS 0 - -
+__S3 0 0 ABS 0 - -
+__HresVect 6 0 code 0 resVect -
+__Lconfig 0 0 CONFIG 4 config -
+__Lspace_0 0 0 ABS 0 - -
+__Lspace_1 0 0 ABS 0 - -
+__Lspace_3 0 0 ABS 0 - -
+__Lspace_4 0 0 ABS 0 - -
+__Ludata_bank0 0 0 ABS 0 udata_bank0 -
+__Ludata_bank1 0 0 ABS 0 udata_bank1 -
+__Ludata_bank2 0 0 ABS 0 udata_bank2 -
+__Ludata_bank3 0 0 ABS 0 udata_bank3 -
+__Hudata_shr 0 0 ABS 0 udata_shr -
+__Ludata_shr 0 0 ABS 0 udata_shr -
+# %SPLITSTAB Section
+# This section enumerates all the psect splits performed by the assembler.
+# The beginning of the section is indicated by %SPLITSTAB.
+# Each line is a record a particular split, where the parent psect is on
+# the left and the child on the right.  Note that a child psect is always
+# split form the top of the parent psect. All splits from a given parent
+# are listed in the order in which they occurred.
+%SPLITSTAB
+# %DABS Section
+# This section contains a table of all usuage of the assember
+# directive DABS in the program. Each line has the following format:
+#   <name> <space> <address> <size>
+# If the DABS was originally labelled then that shall be <name>,
+# otherwise name will be "-".  The <space> number is in decimal.
+# <address> and <size> are in byte units as unqaulified hexadecimal
+%DABS
+# %SEGMENTS Section
+# This sections enumerates the segments of the program.  Each segment
+# is described on a single line as follows:
+#    <name> <space> <link address> <file address> <size> <delta>
+# Addresses and size are in unqualified hexadecimal.  The link address
+# and size are in units of delta. The file address is in units of bytes.
+# All other numeric quantities are in decimal.
+%SEGMENTS
+udata_bank0 1 20 20 3 1
+udata_shr 1 70 70 8 1
+# %NOTES Section
+# This section contains data of all the note-psects.  The beginning of the section
+# is indicated by %NOTES. The first line indicates the name and decimal
+# byte-length of the first note-psect, e.g.
+#   $codecov_info_hdr 16
+# Each line that follows contains the byte-data of the psect in hexadecimal as a
+# space-separated list. These lines are limited to 16 bytes of data.
+%NOTES
