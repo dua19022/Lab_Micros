@@ -2,9 +2,9 @@
 # 1 "<built-in>" 1
 # 1 "Lab_06.s" 2
 ;******************************************************************************
-; Proyecto_01
+; Laboratorio 06
 ;*****************************************************************************
-; Archivo: Proyecto.s
+; Archivo: Lab_06.s
 ; Dispositivo: PIC16F887
 ; Autor: Marco Duarte
 ; Compilador: pic-as (v2.30), MPLABX V5.45
