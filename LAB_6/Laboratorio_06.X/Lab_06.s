@@ -112,7 +112,6 @@ pop:			; Regresar w al status
 ; Subrutinas de Interrupcion
 ;******************************************************************************
 int_tmr2:	; Interrupcion timer2
-    
     btfsc   blinkact, 0	    ; Verificar bandera
     goto    off
 
