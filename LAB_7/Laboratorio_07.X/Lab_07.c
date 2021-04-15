@@ -31,40 +31,83 @@
 
 #include <xc.h>
 #include <stdint.h>
+//-----------------------------------------------------------------------------
+//                            Variables 
+//-----------------------------------------------------------------------------
+        // Se crea una matriz para la traduccion
+char tabla[10] = {0b00111111, 0b00000110, 0b01011011, 0b01001111, 0b01100110,
+    0b01101101, 0b01111101, 0b00000111, 0b01111111, 0b01101111};
+int multi;      // Variable del multiplexeo
+char centenas;  // Variables pra la divisiones
+char decenas;
+char unidades;
+char res;
+char contador;  // Variable que posee el valor del puerto
+
+
+//-----------------------------------------------------------------------------
+//                            Prototipos 
+//-----------------------------------------------------------------------------
+void setup(void);   // Defino las funciones antes de crearlas
+char division(void);
 
 //-----------------------------------------------------------------------------
 //                            Interrupciones
 //-----------------------------------------------------------------------------
-void setup(void);
-
 void __interrupt() isr(void)
 {
-    if(T0IF == 1)
+    if(T0IF == 1)   // Verificar la bandera del timer0
     {   
-        PORTD = PORTD + 1;
-        INTCONbits.T0IF = 0;
-        TMR0 = 255;
+        PORTAbits.RA2 = 0;      // Apago el transistor 2
+        PORTAbits.RA0 = 1;      // Prendo transistor 0
+        PORTD = (tabla[centenas]);  // Ingreso de centenas
+        multi = 0b00000001;     // Prendo una flag
+        
+        if (multi == 0b00000001) // reviso que flag esta prendida
+        {
+            PORTAbits.RA0 = 0;  // Prendo un tnsistor y apgo el otro
+            PORTAbits.RA1 = 1;
+            PORTD = (tabla[decenas]);   // Despliego decenas
+            multi = 0b00000010;         // Cambio de lugar la flag
+        }
+        if (multi == 0b00000010)    // Reviso que flag esta prendida
+        {
+            PORTAbits.RA1 = 0;      // Prendo un transistor y apago otro
+            PORTAbits.RA2 = 1;
+            PORTD = (tabla[unidades]);  // Muevo unidades a un dispay
+            multi = 0b00000000;     // apago las banderas
+        }
+        INTCONbits.T0IF = 0;    // Limpio la interrupcion del timer0
+        TMR0 = 255;     // Configuro el valor de reinicio del timer0
+        
     }
-    if (RBIF == 1)
+    if (RBIF == 1)  // Verificar bandera de la interrupcion del puerto b
     {
-        if (PORTBbits.RB0 == 0)
+        if (PORTBbits.RB0 == 0) // Si oprimo el boton 1
         {
-            PORTC = PORTC + 1;
+            PORTC = PORTC + 1;  // Se suma 1 al puerto
         }
-        if  (PORTBbits.RB1 == 0)
+        if  (PORTBbits.RB1 == 0)    // Se oprimo el boton 2
         {
-            PORTC = PORTC - 1;
+            PORTC = PORTC - 1;  // Se le resta 1 al puerto
         }
-        INTCONbits.RBIF = 0;
+        INTCONbits.RBIF = 0;    // Se limpia la bandera de la interrupcion
     }
 }
-
+//-----------------------------------------------------------------------------
+//                            Main
+//-----------------------------------------------------------------------------
 void main(void) {
     
-    setup();
+    setup();    // Llamo a mi configuracion
     
-    while(1)
-    {}
+    
+    while(1)    // Equivale al loop
+    {
+        
+        division();     // llamo a mi division
+        
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -77,13 +120,17 @@ void setup(void){
     ANSEL = 0x00;
     ANSELH = 0x00;
     
-    // Configurar bits de salida o entrada
+    // Configurar bits de salida o entradaas
+    TRISAbits.TRISA0 = 0;
+    TRISAbits.TRISA1 = 0;
+    TRISAbits.TRISA2 = 0;
     TRISBbits.TRISB0 = 1;
     TRISBbits.TRISB1 = 1;
     TRISC = 0x00;
     TRISD = 0x00;
     
     // Se limpian los puertos
+    PORTA = 0x00;
     PORTB = 0x00;
     PORTC = 0x00;
     PORTD = 0x00;
@@ -97,8 +144,9 @@ void setup(void){
     // Timer0
     OPTION_REGbits.T0CS = 0;
     OPTION_REGbits.PSA = 0;
-    OPTION_REGbits.T0CS = 0;
-    OPTION_REGbits.T0CS = 0;
+    OPTION_REGbits.PS2 = 1;
+    OPTION_REGbits.PS1 = 1;
+    OPTION_REGbits.PS0 = 1;
     
     // Configuracion de pull-up interno
     OPTION_REGbits.nRBPU = 0;
@@ -111,8 +159,13 @@ void setup(void){
     INTCONbits.RBIF = 1;
     INTCONbits.RBIE = 1;
     INTCONbits.T0IE = 1;
-    INTCONbits.T0IF = 1;
-    
-    
-    
+    INTCONbits.T0IF = 0;   
+}
+
+char division(void) {
+    contador = PORTC;       // contador ahora valo lo mismo que portc
+    centenas = contador/100;    // Lo divide siempre, pero solo toma enteros
+    res = contador%100;     // Utiliza el residuo de la division
+    decenas = res/10;   // El residuo se deivide entre 10
+    unidades = res%10;  // luego se mueve ese residuo a unidades
 }

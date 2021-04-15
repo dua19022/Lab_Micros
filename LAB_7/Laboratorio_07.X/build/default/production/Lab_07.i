@@ -2649,15 +2649,51 @@ typedef uint16_t uintptr_t;
 
 
 
+char tabla[10] = {0b00111111, 0b00000110, 0b01011011, 0b01001111, 0b01100110,
+    0b01101101, 0b01111101, 0b00000111, 0b01111111, 0b01101111};
+int multi;
+char centenas;
+char decenas;
+char unidades;
+char res;
+char contador;
+
+
+
+
+
 void setup(void);
+char division(void);
+
+
+
 
 void __attribute__((picinterrupt(("")))) isr(void)
 {
     if(T0IF == 1)
     {
-        PORTD = PORTD + 1;
+        PORTAbits.RA2 = 0;
+        PORTAbits.RA0 = 1;
+        PORTD = (tabla[centenas]);
+        multi = 0b00000001;
+
+        if (multi == 0b00000001)
+        {
+            PORTAbits.RA0 = 0;
+            PORTAbits.RA1 = 1;
+            PORTD = (tabla[decenas]);
+            multi = 0b00000010;
+        }
+        if (multi == 0b00000010)
+        {
+            PORTAbits.RA1 = 0;
+            PORTAbits.RA2 = 1;
+            PORTD = (tabla[unidades]);
+            multi = 0b00000000;
+        }
         INTCONbits.T0IF = 0;
         TMR0 = 255;
+
     }
     if (RBIF == 1)
     {
@@ -2673,12 +2709,19 @@ void __attribute__((picinterrupt(("")))) isr(void)
     }
 }
 
+
+
 void main(void) {
 
     setup();
 
+
     while(1)
-    {}
+    {
+
+        division();
+
+    }
 }
 
 
@@ -2692,12 +2735,16 @@ void setup(void){
     ANSELH = 0x00;
 
 
+    TRISAbits.TRISA0 = 0;
+    TRISAbits.TRISA1 = 0;
+    TRISAbits.TRISA2 = 0;
     TRISBbits.TRISB0 = 1;
     TRISBbits.TRISB1 = 1;
     TRISC = 0x00;
     TRISD = 0x00;
 
 
+    PORTA = 0x00;
     PORTB = 0x00;
     PORTC = 0x00;
     PORTD = 0x00;
@@ -2711,8 +2758,9 @@ void setup(void){
 
     OPTION_REGbits.T0CS = 0;
     OPTION_REGbits.PSA = 0;
-    OPTION_REGbits.T0CS = 0;
-    OPTION_REGbits.T0CS = 0;
+    OPTION_REGbits.PS2 = 1;
+    OPTION_REGbits.PS1 = 1;
+    OPTION_REGbits.PS0 = 1;
 
 
     OPTION_REGbits.nRBPU = 0;
@@ -2725,8 +2773,13 @@ void setup(void){
     INTCONbits.RBIF = 1;
     INTCONbits.RBIE = 1;
     INTCONbits.T0IE = 1;
-    INTCONbits.T0IF = 1;
+    INTCONbits.T0IF = 0;
+}
 
-
-
+char division(void) {
+    contador = PORTC;
+    centenas = contador/100;
+    res = contador%100;
+    decenas = res/10;
+    unidades = res%10;
 }
