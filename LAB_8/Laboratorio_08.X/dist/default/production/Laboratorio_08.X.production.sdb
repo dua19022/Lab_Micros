@@ -17,11 +17,11 @@
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
 "57 D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_8\Laboratorio_08.X\Lab_08.c
 [v _isr isr `II(v  1 e 1 0 ]
-"98
+"100
 [v _main main `(v  1 e 1 0 ]
-"118
+"120
 [v _setup setup `(v  1 e 1 0 ]
-"172
+"173
 [v _division division `(uc  1 e 1 0 ]
 "59 D:/Program File/MPLabX/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h
 [v _TMR0 TMR0 `VEuc  1 e 1 @1 ]
@@ -194,17 +194,17 @@
 [v _res res `uc  1 e 1 0 ]
 "45
 [v _contador contador `uc  1 e 1 0 ]
-"98
+"100
 [v _main main `(v  1 e 1 0 ]
 {
-"116
-} 0
 "118
+} 0
+"120
 [v _setup setup `(v  1 e 1 0 ]
 {
-"170
+"171
 } 0
-"172
+"173
 [v _division division `(uc  1 e 1 0 ]
 {
 "178
@@ -236,5 +236,5 @@
 "57 D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_8\Laboratorio_08.X\Lab_08.c
 [v _isr isr `II(v  1 e 1 0 ]
 {
-"93
+"95
 } 0

@@ -2670,6 +2670,7 @@ char division(void);
 
 void __attribute__((picinterrupt(("")))) isr(void)
 {
+
     if(T0IF == 1)
     {
         PORTBbits.RB2 = 0;
@@ -2694,6 +2695,7 @@ void __attribute__((picinterrupt(("")))) isr(void)
         INTCONbits.T0IF = 0;
         TMR0 = 255;
     }
+
        if(PIR1bits.ADIF == 1)
        {
            if(ADCON0bits.CHS == 0)
@@ -2775,7 +2777,6 @@ void setup(void){
     ADCON0bits.ADCS0 = 1;
     ADCON0bits.ADCS1 = 1;
     ADCON0bits.ADON = 1;
-
     ADCON0bits.CHS = 0;
 
     ADCON1bits.ADFM = 0;
@@ -2784,7 +2785,6 @@ void setup(void){
 }
 
 char division(void) {
-
     centenas = contador/100;
     res = contador%100;
     decenas = res/10;

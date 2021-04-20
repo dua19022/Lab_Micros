@@ -56,6 +56,7 @@ char division(void);
 //-----------------------------------------------------------------------------
 void __interrupt() isr(void)
 {
+    // Interrupcion del timer0
     if(T0IF == 1)   // Verificar la bandera del timer0
     {   
         PORTBbits.RB2 = 0;      // Apago el transistor 2
@@ -80,15 +81,16 @@ void __interrupt() isr(void)
         INTCONbits.T0IF = 0;    // Limpio la interrupcion del timer0
         TMR0 = 255;     // Configuro el valor de reinicio del timer0
     }
-       if(PIR1bits.ADIF == 1)
+        // Interrupcion del ADC
+       if(PIR1bits.ADIF == 1)       // Reviso la bandera del ADC
        {
-           if(ADCON0bits.CHS == 0)
+           if(ADCON0bits.CHS == 0)  // Si estoy en el canal 0 desplegar al portc
                PORTC = ADRESH;
            
-           else
+           else             // Sino mover adresh a la division
                contador = ADRESH;
            
-           PIR1bits.ADIF = 0;           
+           PIR1bits.ADIF = 0;        // Bajo la bandera del ADC
        }
     }
 
@@ -102,16 +104,16 @@ void main(void) {
     
     while(1)    // Equivale al loop
     {
-        if(ADCON0bits.GO == 0){
-            if(ADCON0bits.CHS == 1)
+        if(ADCON0bits.GO == 0){     // Se crea un cambio de canal
+            if(ADCON0bits.CHS == 1) // si es 1 que se vuelva 0
                 ADCON0bits.CHS = 0;
-            else
+            else                // si no es 1, que se vuelva 1
                 ADCON0bits.CHS = 1;
             
-            __delay_us(100);
-            ADCON0bits.GO = 1;
+            __delay_us(100);        // Se espera un tiempo para hacer el cambio
+            ADCON0bits.GO = 1;  // Activo las conversiones
         }
-       division(); 
+       division();  // Llamo a mi division
     }
 }
 
@@ -160,17 +162,15 @@ void setup(void){
     // Configuracion del ADC
     ADCON0bits.ADCS0 = 1;
     ADCON0bits.ADCS1 = 1; // Se configura el oscilador interno
-    ADCON0bits.ADON = 1;        // Activar el ADC
-    
+    ADCON0bits.ADON = 1;        // Activar el ADC  
     ADCON0bits.CHS = 0;         // Canal 0
     
     ADCON1bits.ADFM = 0;        // Justificado a la izquierda
-    ADCON1bits.VCFG0 = 0;
+    ADCON1bits.VCFG0 = 0;       // Volataje de referencia vss y vddd
     ADCON1bits.VCFG1 = 0;
 }
 
 char division(void) {
-//    contador = pot2;       // contador ahora valo lo mismo que portc
     centenas = contador/100;    // Lo divide siempre, pero solo toma enteros
     res = contador%100;     // Utiliza el residuo de la division
     decenas = res/10;   // El residuo se deivide entre 10
