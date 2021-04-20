@@ -82,18 +82,13 @@ void __interrupt() isr(void)
     }
        if(PIR1bits.ADIF == 1)
        {
-           if(ADCON0bits.CHS == 0){
+           if(ADCON0bits.CHS == 0)
                PORTC = ADRESH;
-//               ADCON0bits.CHS = 1;
-           }
-           if(ADCON0bits.CHS == 1){
-               contador = ADRESH;
-//               ADCON0bits.CHS = 0;
-           }
-           ADCON0bits.GO = 1;
-           PIR1bits.ADIF = 0;
-           __delay_us(50); 
            
+           else
+               contador = ADRESH;
+           
+           PIR1bits.ADIF = 0;           
        }
     }
 
@@ -107,6 +102,15 @@ void main(void) {
     
     while(1)    // Equivale al loop
     {
+        if(ADCON0bits.GO == 0){
+            if(ADCON0bits.CHS == 1)
+                ADCON0bits.CHS = 0;
+            else
+                ADCON0bits.CHS = 1;
+            
+            __delay_us(100);
+            ADCON0bits.GO = 1;
+        }
        division(); 
     }
 }

@@ -2696,18 +2696,13 @@ void __attribute__((picinterrupt(("")))) isr(void)
     }
        if(PIR1bits.ADIF == 1)
        {
-           if(ADCON0bits.CHS == 0){
+           if(ADCON0bits.CHS == 0)
                PORTC = ADRESH;
 
-           }
-           if(ADCON0bits.CHS == 1){
+           else
                contador = ADRESH;
 
-           }
-           ADCON0bits.GO = 1;
            PIR1bits.ADIF = 0;
-           _delay((unsigned long)((50)*(4000000/4000000.0)));
-
        }
     }
 
@@ -2721,6 +2716,15 @@ void main(void) {
 
     while(1)
     {
+        if(ADCON0bits.GO == 0){
+            if(ADCON0bits.CHS == 1)
+                ADCON0bits.CHS = 0;
+            else
+                ADCON0bits.CHS = 1;
+
+            _delay((unsigned long)((100)*(4000000/4000000.0)));
+            ADCON0bits.GO = 1;
+        }
        division();
     }
 }
