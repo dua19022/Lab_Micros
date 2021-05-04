@@ -1,4 +1,4 @@
-# 1 "Lab_09.c"
+# 1 "Lab_10.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,8 +6,8 @@
 # 1 "<built-in>" 2
 # 1 "D:/Program File/MPLabX/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "Lab_09.c" 2
-# 12 "Lab_09.c"
+# 1 "Lab_10.c" 2
+# 12 "Lab_10.c"
 #pragma config FOSC = INTRC_NOCLKOUT
 #pragma config WDTE = OFF
 #pragma config PWRTE = OFF
@@ -2508,7 +2508,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "D:/Program File/MPLabX/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 31 "Lab_09.c" 2
+# 31 "Lab_10.c" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
 # 13 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
@@ -2643,11 +2643,12 @@ typedef int16_t intptr_t;
 
 
 typedef uint16_t uintptr_t;
-# 32 "Lab_09.c" 2
+# 32 "Lab_10.c" 2
 
 
 
 
+const char var = 45;
 
 
 
@@ -2660,18 +2661,13 @@ void setup(void);
 void __attribute__((picinterrupt(("")))) isr(void)
 {
 
-       if(PIR1bits.ADIF == 1)
-       {if(ADCON0bits.CHS == 0)
-             CCPR2L = (ADRESH>>1)+124;
-
-
-           else
-           CCPR1L = (ADRESH>>1)+124;
-
-
-
-           PIR1bits.ADIF = 0;
-       }
+    if (PIR1bits.RCIF == 1){
+        PORTB = RCREG;
+    }
+    if (PIR1bits.TXIF == 1){
+        TXREG = var;
+    }
+     _delay((unsigned long)((100)*(8000000/4000000.0)));
     }
 
 
@@ -2684,15 +2680,7 @@ void main(void) {
 
     while(1)
     {
-        if(ADCON0bits.GO == 0){
-            if(ADCON0bits.CHS == 1)
-                ADCON0bits.CHS = 0;
-            else
-                ADCON0bits.CHS = 1;
 
-            _delay((unsigned long)((100)*(4000000/4000000.0)));
-            ADCON0bits.GO = 1;
-        }
 
     }
 }
@@ -2700,16 +2688,17 @@ void main(void) {
 void setup(void){
 
 
-    ANSEL = 0b00000011;
+    ANSEL = 0;
     ANSELH = 0;
 
 
-    TRISAbits.TRISA0 = 1;
-    TRISAbits.TRISA1 = 1;
+    TRISA = 0x0;
+    TRISB = 0x0;
 
 
     PORTA = 0x00;
-    PORTC = 0x00;
+    PORTB = 0x00;
+
 
 
     OSCCONbits.IRCF2 = 1;
@@ -2720,41 +2709,25 @@ void setup(void){
 
     INTCONbits.GIE = 1;
     INTCONbits.PEIE = 1;
-    PIE1bits.ADIE = 1;
-    PIR1bits.ADIF = 0;
+    PIE1bits.RCIE = 1;
+    PIE1bits.TXIE = 1;
 
 
-    ADCON0bits.ADCS0 = 0;
-    ADCON0bits.ADCS1 = 1;
-    ADCON0bits.ADON = 1;
-    ADCON0bits.CHS = 0;
-    _delay((unsigned long)((50)*(4000000/4000000.0)));
 
-    ADCON1bits.ADFM = 0;
-    ADCON1bits.VCFG0 = 0;
-    ADCON1bits.VCFG1 = 0;
+    TXSTAbits.SYNC = 0;
+    TXSTAbits.BRGH = 1;
+    BAUDCTLbits.BRG16 = 1;
 
+    SPBRG = 207;
+    SPBRGH = 0;
 
-    TRISCbits.TRISC1 = 1;
-    TRISCbits.TRISC2 = 1;
+    RCSTAbits.SPEN = 1;
+    RCSTAbits.RX9 = 0;
+    RCSTAbits.CREN = 1;
 
-    PR2 = 250;
-    CCP1CONbits.P1M = 0;
-    CCP1CONbits.CCP1M = 0b1100;
-    CCP2CONbits.CCP2M = 0b1100;
+    TXSTAbits.TXEN = 1;
 
-    CCPR1L = 0x0f;
-    CCP1CONbits.DC1B = 0;
-
-    PIR1bits.TMR2IF = 0;
-    T2CONbits.T2CKPS = 0b11;
-    T2CONbits.TMR2ON = 1;
-
-    while(PIR1bits.TMR2IF == 0);
-    PIR1bits.TMR2IF = 0;
-
-
-    TRISCbits.TRISC1 = 0;
-    TRISCbits.TRISC2 = 0;
+    PIR1bits.RCIF = 0;
+    PIR1bits.TXIF = 0;
 
 }

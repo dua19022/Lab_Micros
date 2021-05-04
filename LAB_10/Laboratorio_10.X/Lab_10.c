@@ -1,7 +1,7 @@
 /******************************************************************************
- * Laboratorio 09
+ * Laboratorio 10
  ******************************************************************************
- * File:   Lab_09.c
+ * File:   Lab_10.c
  * Author: Marco
  * 
  *
@@ -27,12 +27,13 @@
 // #pragma config statements should precede project file includes.
 // Use project enums instead of #define for ON and OFF.
 
-#define _XTAL_FREQ 4000000
+#define _XTAL_FREQ 8000000
 #include <xc.h>
 #include <stdint.h>
 //-----------------------------------------------------------------------------
 //                            Variables 
 //-----------------------------------------------------------------------------
+const char var = 45;
 
 //-----------------------------------------------------------------------------
 //                            Prototipos 
@@ -44,19 +45,14 @@ void setup(void);   // Defino las funciones antes de crearlas
 //-----------------------------------------------------------------------------
 void __interrupt() isr(void)
 {
-        // Interrupcion del ADC
-       if(PIR1bits.ADIF == 1)       // Reviso la bandera del ADC
-       {if(ADCON0bits.CHS == 0)  // Si estoy en el canal 0 desplegar al portc
-             CCPR2L = (ADRESH>>1)+124;
-           
-       
-           else             // Sino mover adresh a la division
-           CCPR1L = (ADRESH>>1)+124;
-//           CCP1CONbits.DC1B1 = ADRESH & 0b01;
-//           CCP1CONbits.DC1B0 = (ADRESH>>7);
-           
-           PIR1bits.ADIF = 0;        // Bajo la bandera del ADC
-       }
+        // Interrupcion RX y TX
+    if (PIR1bits.RCIF == 1){
+        PORTB = RCREG;
+    }
+    if (PIR1bits.TXIF == 1){
+        TXREG = var;
+    }
+     __delay_us(100);  
     }
 
 //-----------------------------------------------------------------------------
@@ -69,15 +65,7 @@ void main(void) {
     
     while(1)    // Equivale al loop
     {
-        if(ADCON0bits.GO == 0){     // Se crea un cambio de canal
-            if(ADCON0bits.CHS == 1) // si es 1 que se vuelva 0
-                ADCON0bits.CHS = 0;
-            else                // si no es 1, que se vuelva 1
-                ADCON0bits.CHS = 1;
-            
-            __delay_us(100);        // Se espera un tiempo para hacer el cambio
-            ADCON0bits.GO = 1;  // Activo las conversiones
-        }
+        
        
     }
 }
@@ -85,16 +73,17 @@ void main(void) {
 void setup(void){
     
     // Configuraciones de puertos digitales
-    ANSEL = 0b00000011;
+    ANSEL = 0;
     ANSELH = 0;
     
     // Configurar bits de salida o entradaas
-    TRISAbits.TRISA0 = 1;
-    TRISAbits.TRISA1 = 1;
+    TRISA = 0x0;
+    TRISB = 0x0;
     
     // Se limpian los puertos
     PORTA = 0x00;
-    PORTC = 0x00;
+    PORTB = 0x00;
+    
     
     // Se configura el oscilador
     OSCCONbits.IRCF2 = 1;
@@ -105,42 +94,25 @@ void setup(void){
     // Configuacion de las interrupciones
     INTCONbits.GIE = 1;
     INTCONbits.PEIE = 1;    // Periferical interrupt
-    PIE1bits.ADIE = 1;      // Activar la interrupcion del ADC
-    PIR1bits.ADIF = 0;      // Bandera del ADC
-    
-    // Configuracion del ADC
-    ADCON0bits.ADCS0 = 0;
-    ADCON0bits.ADCS1 = 1;       // FOSC/32
-    ADCON0bits.ADON = 1;        // Activar el ADC  
-    ADCON0bits.CHS = 0;         // Canal 0
-    __delay_us(50);
-    
-    ADCON1bits.ADFM = 0;        // Justificado a la izquierda
-    ADCON1bits.VCFG0 = 0;       // Volataje de referencia vss y vddd
-    ADCON1bits.VCFG1 = 0;
-    
-    // Configuracion del PWM
-    TRISCbits.TRISC1 = 1;
-    TRISCbits.TRISC2 = 1;
-    
-    PR2 = 250;      // Config periodo
-    CCP1CONbits.P1M = 0;    // config modo pwm
-    CCP1CONbits.CCP1M = 0b1100;     // configuracion del pwm 1
-    CCP2CONbits.CCP2M = 0b1100;     // configuracion del pwm 2
-    
-    CCPR1L = 0x0f;      // ciclo trabajo normal
-    CCP1CONbits.DC1B = 0;
-    
-    PIR1bits.TMR2IF = 0;        // apagamos bandera
-    T2CONbits.T2CKPS = 0b11;  // prescaler 1:16
-    T2CONbits.TMR2ON = 1;
-    
-    while(PIR1bits.TMR2IF == 0);
-    PIR1bits.TMR2IF = 0;
-    
-    // salidas del PWM
-    TRISCbits.TRISC1 = 0;
-    TRISCbits.TRISC2 = 0;
-  
-}
+    PIE1bits.RCIE = 1;      // Interrupcion rx
+    PIE1bits.TXIE = 1;      // Interrupcion TX
 
+
+    // Configuraciones TX y RX
+    TXSTAbits.SYNC = 0;
+    TXSTAbits.BRGH = 1;
+    BAUDCTLbits.BRG16 = 1;
+    
+    SPBRG = 207;
+    SPBRGH = 0;
+    
+    RCSTAbits.SPEN = 1;
+    RCSTAbits.RX9 = 0;
+    RCSTAbits.CREN = 1;
+    
+    TXSTAbits.TXEN = 1;
+    
+    PIR1bits.RCIF = 0;  // Bandera rx
+    PIR1bits.TXIF = 0;  // bandera tx
+
+}

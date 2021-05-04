@@ -13,9 +13,9 @@
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
 "45 D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_9\Laboratorio_09.X\Lab_09.c
 [v _isr isr `II(v  1 e 1 0 ]
-"66
+"65
 [v _main main `(v  1 e 1 0 ]
-"86
+"85
 [v _setup setup `(v  1 e 1 0 ]
 "166 D:/Program File/MPLabX/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h
 [v _PORTA PORTA `VEuc  1 e 1 @5 ]
@@ -191,18 +191,18 @@
 [v _ANSEL ANSEL `VEuc  1 e 1 @392 ]
 "3449
 [v _ANSELH ANSELH `VEuc  1 e 1 @393 ]
-"66 D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_9\Laboratorio_09.X\Lab_09.c
+"65 D:\University\2021\Semestre 1\Programacion de Microcontroladores\PrograDeMicros - LAB\Lab_Micros\LAB_9\Laboratorio_09.X\Lab_09.c
 [v _main main `(v  1 e 1 0 ]
 {
-"84
+"83
 } 0
-"86
+"85
 [v _setup setup `(v  1 e 1 0 ]
 {
-"146
+"145
 } 0
 "45
 [v _isr isr `II(v  1 e 1 0 ]
 {
-"61
+"60
 } 0
