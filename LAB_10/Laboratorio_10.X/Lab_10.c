@@ -30,30 +30,17 @@
 #define _XTAL_FREQ 8000000
 #include <xc.h>
 #include <stdint.h>
+#include <stdio.h>  // Para usar printf
 //-----------------------------------------------------------------------------
 //                            Variables 
 //-----------------------------------------------------------------------------
-const char var = 45;
 
 //-----------------------------------------------------------------------------
 //                            Prototipos 
 //-----------------------------------------------------------------------------
 void setup(void);   // Defino las funciones antes de crearlas
-
-//-----------------------------------------------------------------------------
-//                            Interrupciones
-//-----------------------------------------------------------------------------
-void __interrupt() isr(void)
-{
-        // Interrupcion RX y TX
-    if (PIR1bits.RCIF == 1){
-        PORTB = RCREG;
-    }
-    if (PIR1bits.TXIF == 1){
-        TXREG = var;
-    }
-     __delay_us(100);  
-    }
+void putch(char data); //funcion para recibir el dato que se desea transmitir
+void text(void);    // Donde se introduce las cadenas de texto
 
 //-----------------------------------------------------------------------------
 //                            Main
@@ -61,13 +48,50 @@ void __interrupt() isr(void)
 void main(void) {
     
     setup();    // Llamo a mi configuracion
-//    ADCON0bits.GO = 1;     // Bita para que comience la conversion
+
     
     while(1)    // Equivale al loop
     {
-        
+    text();    // Funcion de cadenas de caracteres
        
     }
+}
+
+void putch(char data){      // Funcion especifica de libreria stdio.h
+    while(TXIF == 0);
+    TXREG = data; // lo que se muestra de la cadena
+    return;
+}
+// Funcion donde se definen las cadenas mediante printf
+void text(void){
+    __delay_ms(250); //Tiempos para el despliegue de los caracteres
+    printf("\r Elija una opcion: \r");
+    __delay_ms(250);
+    printf(" 1. Desplegar cadena de caracteres \r");
+    __delay_ms(250);
+    printf(" 2. Desplegar PORTA \r");
+    __delay_ms(250);
+    printf(" 3. Desplegar PORTB \r");
+    while (RCIF == 0);
+    // Se establecen las opciones del menu
+    if (RCREG == '1'){
+        __delay_ms(500);
+        printf("\r Cadena de caracteres cargando...... \r");
+    }
+    if (RCREG == '2'){ //segunda opcion del menu
+        printf("\r Insertar caracter para desplegar en PORTA: \r");
+        while (RCIF == 0);
+        PORTA = RCREG; //para recibir un caracter
+    }
+    if (RCREG == '3'){ //tercera opcion del menu
+        printf("\r Insertar caracter para desplegar en PORTB: \r");
+        while (RCIF == 0);
+        PORTB = RCREG;
+    }
+    else{ //Si se ingresa una popcion fuera de la lista, no sucede nada
+        NULL;       // equivalente a un nop
+    }
+    return;
 }
 
 void setup(void){
@@ -103,7 +127,7 @@ void setup(void){
     TXSTAbits.BRGH = 1;
     BAUDCTLbits.BRG16 = 1;
     
-    SPBRG = 207;
+    SPBRG = 208;
     SPBRGH = 0;
     
     RCSTAbits.SPEN = 1;
